@@ -1,8 +1,10 @@
-#include<fstream.h>
+#include<fstream>
+#include<iostream>
 #include<conio.h>
 #include<stdio.h>
 #include<string.h>
 #include<stdlib.h>
+using namespace std;
 class criminal
 {
 int cidno,age,firno;
@@ -33,33 +35,38 @@ public: void input();
 
 void criminal::input()
 {
-clrscr();
+
 cout<<"Enter criminal id:";
 cin>>cidno;
-endl;
+cout<<"\n";;
 cout<<"Enter criminal name:";
+fflush(stdin);
 gets(name);
-endl;
+cout<<"\n";
 cout<<"Enter criminal age:";
 cin>>age;
-endl;
+cout<<"\n";
 cout<<"Enter criminal gender(M/F):";
+fflush(stdin);
 cin>>gen;
-endl;
+cout<<"\n";
 cout<<"Enter criminal address:";
+fflush(stdin);
 gets(address);
-endl;
+cout<<"\n";
 cout<<"Enter FIR no.:";
 cin>>firno;
-endl;
+cout<<"\n";
 cout<<"Enter special identification mark (mandatory field):";
+fflush(stdin);
 gets(imark);
-endl;
+cout<<"\n";
 cout<<"Enter date of record entry (dd/mm/yyyy):";
+fflush(stdin);
 gets(date);
-endl;
+cout<<"\n";
 getch();
-clrscr();
+
 }
 
 void criminal::output()
@@ -72,7 +79,7 @@ cout<<"Address:"<<address<<endl;
 cout<<"FIR no.:"<<firno<<endl;
 cout<<"Special identification mark:"<<imark<<endl;
 cout<<"Date of record entry:"<<date<<endl;
-endl;
+cout<<"\n";
 }
 
 void modify(char*a)
@@ -149,6 +156,7 @@ do{cout<<"Enter ID no. of criminal whose record is to be deleted\n";
 
 void sort(char*a)
 {
+int i,j;
 char t8[20];
 strcpy(t8,a);
 int n;
@@ -167,9 +175,9 @@ while(f4)
      }
      f4.close();
      n=k;
-     for(int i=0;i<n;i++)
+     for(i=0;i<n;i++)
 	{
-	for(int j=0;j<n-1-i;j++)
+	for(j=0;j<n-1-i;j++)
 	   {
 	   if(C2[j].retidno()>C2[j+1].retidno())
 	     {
@@ -209,18 +217,18 @@ do{C.input();
 getch();
 }
 
-void main()
+int main()
 {
-clrscr();
+system("cls");
 criminal C;
 char tempo[20];
 int z;
 char ch;
-clrscr();
+system("cls");
 cout<<"\n\n\n\n\n\t\t@@@@@@@@@@@@@@@@@ WELCOME TO @@@@@@@@@@@@@@@@@@@@\n\t\t\t\tCRIMINAL DATABASE SYSTEM\n\n\n";
 cout<<"Enter name of file\n";
 gets(strcat(tempo,".dat"));
-clrscr();
+system("cls");
 cout<<"Let's get started\n";
 do{cout<<"Choose operation to be performed\n\t\t1.Add records \n\t\t2.Display all records\n\t\t3.Delete record\n\t\t4.Modify a record\n\t\t5.Sort all records\n\t\t";
 cin>>z;
@@ -228,15 +236,15 @@ switch(z)
 {
 case 1:create(tempo);
        break;
-case 2:ifstream g;
+case 2:{ifstream g;
        g.open(tempo,ios::binary|ios::app);
        if(!g)
-       {cout<<"File cannot be read\n";return;}
+       {cout<<"File cannot be read\n";return 0;}
        g.seekg(0);
        while(g.read((char*)&C,sizeof(C)))
        {C.output();}
        g.close();
-       break;
+       break;}
 case 3:delrec(tempo);
        break;
 case 4:modify(tempo);
@@ -247,8 +255,9 @@ default: cout<<"Invalid choice \n";
 }
 cout<<"Continue operations?\n";
 cin>>ch;
-clrscr();
+system("cls");
 }while(ch=='y'||ch=='Y');
 cout<<"\n\n\n\n\n\t\t\tThank You for using our software\n";
 getch();
+return 0;
 }
